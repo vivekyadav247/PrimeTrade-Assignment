@@ -7,7 +7,7 @@ import AdminUsers from "./pages/AdminUsers";
 import AdminTasks from "./pages/AdminTasks";
 import AdminUserTasks from "./pages/AdminUserTasks";
 import PrivateRoute from "./utils/PrivateRoute";
-import { AuthProvider } from "./context/AuthCOntext";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (

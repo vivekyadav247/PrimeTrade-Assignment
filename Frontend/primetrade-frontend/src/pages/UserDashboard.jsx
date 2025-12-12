@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "../api/axios";
-import { AuthContext } from "../context/AuthCOntext";
+import { AuthContext } from "../context/AuthContext";
 import TaskForm from "../components/TaskForm";
 import Navbar from "../components/Navbar";
 
