@@ -54,8 +54,39 @@ exports.getAllTasks = async (req, res) => {
 
 exports.getUserTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({ createdBy: req.params.id });
+    const tasks = await Task.find({ createdBy: req.params.id }).populate(
+      "createdBy",
+      "name email"
+    );
     res.json(tasks);
+  } catch (err) {
+    res.status(500).json({ error: "Server Error" });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    await Task.deleteMany({ createdBy: req.params.id });
+
+    await User.findByIdAndDelete(req.params.id);
+
+    res.json({ message: "User and their tasks deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Server Error" });
+  }
+};
+
+exports.deleteTask = async (req, res) => {
+  try {
+    const task = await Task.findById(req.params.taskId);
+    if (!task) return res.status(404).json({ error: "Task not found" });
+
+    await Task.findByIdAndDelete(req.params.taskId);
+
+    res.json({ message: "Task deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: "Server Error" });
   }

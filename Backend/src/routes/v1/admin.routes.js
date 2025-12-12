@@ -14,4 +14,18 @@ router.get(
   adminCtrl.getUserTasks
 );
 
+router.delete(
+  "/users/:id",
+  authenticate,
+  checkRole("admin"),
+  adminCtrl.deleteUser
+);
+
+router.delete(
+  "/tasks/:taskId",
+  authenticate,
+  checkRole("admin"),
+  adminCtrl.deleteTask
+);
+
 module.exports = router;
