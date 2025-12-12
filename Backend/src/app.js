@@ -14,6 +14,13 @@ const errorHandler = require("./utils/errorHandler");
 
 const app = express();
 
+const corsOptions = {
+  origin: ["http://localhost:5173", "http://localhost:3000"], // frontend origins
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 200,
@@ -24,7 +31,7 @@ app.use(limiter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(morgan("dev"));
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
